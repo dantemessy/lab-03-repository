@@ -69,15 +69,15 @@ $('document').ready(function () {
 
   })
   // The new page
-  $('#page2').on('click', (data) => {
+  $('#page2').on('click', () => {
 
     $.get('/data/page-2.json')
-      .then((date) => {
+      .then((data2) => {
 
         let seenPage2 = [];
-        console.log(data)
+        console.log(data2)
 
-        data.forEach((photo) => {
+        data2.forEach((photo) => {
           let pic = new Pic(photo);
           pic.render();
 
@@ -93,7 +93,7 @@ $('document').ready(function () {
 
     $('#select').on('change', (work) => {
       let optionEl = work.target.value;
-      // $('div').hide();
+      $('div').hide();
       $(`.${optionEl}`).fadeIn(500);
       console.log(optionEl);
 
