@@ -1,0 +1,38 @@
+img {
+    height: 200px;
+    width: 200px;
+}
+
+
+
+body {
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+header{
+    margin: 0 auto;
+    text-align: center;
+    height:100px;
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+div {
+    float: left;
+    height: 300px;
+    widows: 300px;
+    margin: 0 auto;
+    margin-left: 10px;
+    text-align: center; 
+}
+
+
+footer{
+    clear: both;
+    height: 100px;
+    text-align: center;
+    padding-top: 50px;
+}
