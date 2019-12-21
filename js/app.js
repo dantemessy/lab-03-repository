@@ -1,7 +1,7 @@
 'use strict'
 
-
 $('document').ready(function () {
+  let seen = [];
 
   let templateId = '#template1';
   let keysArr = [];
@@ -17,89 +17,85 @@ $('document').ready(function () {
     keysArr.push(this.keyword);
   }
 
-  console.log(keysArr);
 
-
-
-  //here the render ;
-
+  //the render ;
   Pic.prototype.render = function () {
-
     let template = $(templateId).html();
     let templateRender = Handlebars.compile(template);
     $('#photo').append(templateRender(this));
-    // let renderClone = $('<div><h1></h1> <img/> <p></p></div>').clone();
-    // renderClone.find('h1').text(this.title);
-    // renderClone.find('img').attr('src', this.image_url);
-    // renderClone.find('p').text(this.description);
-    // renderClone.addClass(this.keyword);
-
-    // $('#photo').append(renderClone);
-
-    // renderOp.find('option').text(this.keyword);
-    // let renderOp = $(`<option> ${this.keyword} </option>`)
   };
 
 
   //read the data from the json file ;
-  $.get('/data/page-1.json')
-    .then((data) => {
+  $('#page1').on('click', showImages);
+  $('#page2').on('click', showImages2);
 
-      let seen = [];
 
-      data.forEach((photo) => {
-        let pic = new Pic(photo);
-        pic.render();
-
-        if (!seen.includes(photo.keyword)) {
-          let renderOp = $(`<option value = ${photo.keyword}> ${photo.keyword} </option>`)
-          seen.push(photo.keyword);
-          renderOp.html();
-          $('#select').append(renderOp);
-        }
-
-      });
-    });
-
-  $('#select').on('change', (work) => {
-    let optionEl = work.target.value;
-    $('div').hide();
-    $(`.${optionEl}`).fadeIn(500);
-    console.log(optionEl);
-
-  })
-  // The new page
-  $('#page2').on('click', () => {
-
-    $.get('/data/page-2.json')
-      .then((data2) => {
-
-        let seenPage2 = [];
-        console.log(data2)
-
-        data2.forEach((photo) => {
+  function showImages() {
+    // let seen = [];
+    seen = [];
+    console.log(seen)
+    $('#photo').html('');
+    $('#select').html('');
+    // console.log('page1');
+    $.get(`/data/page-1.json`)
+      .then((data) => {
+        data.forEach((photo) => {
           let pic = new Pic(photo);
           pic.render();
 
-          if (!seenPage2.includes(photo.keyword)) {
+          if (!(seen.includes(photo.keyword))) {
             let renderOp = $(`<option value = ${photo.keyword}> ${photo.keyword} </option>`)
-            seenPage2.push(photo.keyword);
+            seen.push(photo.keyword);
             renderOp.html();
             $('#select').append(renderOp);
           }
-
         });
+
       });
 
     $('#select').on('change', (work) => {
       let optionEl = work.target.value;
       $('div').hide();
       $(`.${optionEl}`).fadeIn(500);
-      console.log(optionEl);
 
     })
-  })
+  }
 
 
-  /////////////////////////////////////
+  ////////// page2
+
+  function showImages2() {
+    $('#photo').html('');
+    seen = [];
+    $('#select').html('');
+    // let seen2 = [];
+    console.log(seen)
+    // console.log('page2');
+
+    $.get(`/data/page-2.json`)
+      .then((data) => {
+        data.forEach((photo) => {
+          let pic = new Pic(photo);
+          pic.render();
+          if (!seen.includes(photo.keyword)) {
+            let renderOp = $(`<option value = ${photo.keyword}> ${photo.keyword} </option>`)
+            seen.push(photo.keyword);
+            renderOp.html();
+            $('#select').append(renderOp);
+          }
+
+        });
+
+      });
+
+    $('#select').on('change', (work) => {
+      let optionEl = work.target.value;
+      $('div').hide();
+      $(`.${optionEl}`).fadeIn(500);
+
+    })
+  }
+
+  $('document').ready(showImages);
 });
