@@ -1,3 +1,13 @@
+#photo{
+    display: flex;
+    flex-wrap: wrap;
+    background-color:gray;
+  
+}
+
+
+
+
 img {
     height: 200px;
     width: 200px;
@@ -5,10 +15,11 @@ img {
 
 
 
-body {
+/* body {
     width: 80%;
     margin: 0 auto;
 }
+ */
 
 
 header{
@@ -19,15 +30,15 @@ header{
     margin-bottom: 30px;
 }
 
-
+/* 
 div {
-    float: left;
-    height: 300px;
+    /* float: left; */
+    /* height: 300px;
     widows: 300px;
     margin: 0 auto;
     margin-left: 10px;
     text-align: center; 
-}
+} */ 
 
 
 footer{
